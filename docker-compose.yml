@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+  app:
+    build: .
+    labels:
+      - "com.calponia.networking.0.port=3000"
+    ports:
+      - '8123:3000'
