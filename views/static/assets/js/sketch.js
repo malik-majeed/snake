@@ -67,7 +67,7 @@ function getScore() {
 
 function postScore(totalLength) {
   userName = prompt('Enter your Username and submit score', '');
-  if (userName == null) {
+  if (userName == null || userName.length == 0 | userName.length > 50) {
     userName = "You dont entered a username, so this must be enough ;)"
   }
   const Url = "/highscore";
@@ -132,6 +132,8 @@ function Snake() {
       var pos = this.tail[i];
       var d = dist(this.x, this.y, pos.x, pos.y);
       if (d < 1) {
+        var audio = new Audio('../assets/audio/dead.wav');
+        audio.play();
         postScore(this.totalLength)
         this.totalLength = 0;
         this.tail = [];
@@ -174,6 +176,8 @@ function Snake() {
   this.eat = function (pos) {
     var distance = dist(this.x, this.y, pos.x, pos.y);
     if (distance < 1) {
+      var audio = new Audio('../assets/audio/eat.wav');
+      audio.play();
       this.totalLength++;
       return true;
     } else {
@@ -183,6 +187,8 @@ function Snake() {
   this.eatDanger = function (pos) {
     var distance = dist(this.x, this.y, pos.x, pos.y);
     if (distance < 1) {
+      var audio = new Audio('../assets/audio/dead.wav');
+      audio.play();
       postScore(this.totalLength)
       this.totalLength = 0;
       this.tail = [];
@@ -196,6 +202,8 @@ function Snake() {
   this.eatPortal = function (pos) {
     var distance = dist(this.x, this.y, pos.x, pos.y);
     if (distance < 1) {
+      var audio = new Audio('../assets/audio/port.wav');
+      audio.play();
       var cols = floor(width / scl);
       var rows = floor(height / scl);
       randomCoordinates = createVector(floor(random(cols)), floor(random(rows)));
