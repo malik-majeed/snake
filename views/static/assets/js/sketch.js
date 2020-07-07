@@ -17,7 +17,7 @@ function setup() {
   portalZone()
   setInterval(dangerZone, 10000);
   setInterval(portalZone, 10000);
-  img = loadImage('../assets/calponia.png');
+  img = loadImage('../assets/images/calponia.png');
   tint(0, 0, 128);
   setInterval(changeColor, 100);
 }
