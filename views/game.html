@@ -1,39 +1,64 @@
 <html>
-  <head>
-    <script src="/assets/js/p5.min.js"></script>
-    <script src="/assets/js/p5.dom.min.js"></script>
-    <script src="/assets/js/p5.sound.min.js"></script>
-    <script src="/assets/js/jquery.min.js"></script>
-    <link rel="stylesheet" href="/assets/css/gameStyles.css"/>
-    <link rel="icon" 
-      type="image/png" 
-      href="assets/images/calponia.png">
-    <style>
-      .score{
-        text-align: center;
-        color: white;
-        margin-bottom: 10px;
-      }
-      .counter{
-        color: white;
-      }
-      body{
-        background-image: url('assets/images/background.jpg');
-      }
-    </style>
 
-  </head>
-  <body>
-    <br>
-    <div class="score">
-      Current Highscore: 
-      <div class="currentHighscore"></div>
-    </div>
-    <div class="score">
-      Your current score: 
-      <div class="counter"></div>
-    </div>
+<head>
+  <script src="/assets/js/p5.min.js"></script>
+  <script src="/assets/js/p5.dom.min.js"></script>
+  <script src="/assets/js/p5.sound.min.js"></script>
+  <script src="/assets/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/assets/css/gameStyles.css" />
+  <link rel="icon" type="image/png" href="assets/images/calponia.png">
+  <link href="https://cdn.calponia.com/css/2/bundle.css" rel="stylesheet" />
+</head>
+
+<body>
+  <br>
+  <div class="root">
     <div id="game"></div>
-    <script src="/assets/js/sketch.js"></script> 
-  </body>
+    <div class="legend">
+      <div>
+        <div class="score">
+          <b>Current Highscore:</b>
+          <div class="currentHighscore"></div>
+        </div>
+        <br>
+        <div class="score">
+          <b>Your current score:</b>
+          <div class="counter"></div>
+        </div>
+      </div>
+      <ul>
+        <li>
+          <img src="/assets/images/calponia.png" class="calponiaImage"><span>Eat the Calponia logo to grow!</span>
+        </li>
+        <br>
+        <li>
+          <svg class="danger"></svg><span>Avoid this box, it will kill you!</span>
+        </li>
+        <br>
+        <li>
+          <svg class="minus"></svg><span>Avoid this box, it will shrink you !</span>
+        </li>
+        <br>
+        <li>
+          <svg class="port"></svg><span>This box will port you to a random position!</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="cal-position-fixed cal-bottom-0 cal-left-0 cal-right-0 cal-background-color-grey-100 cal-padding-all-m cal-text-align-center">
+    <div class="cal-display-flex">
+      <div class="cal-width-100 cal-text-align-left">
+        <div class="cal-color-grey-700">© Bosch Engineering GmbH 2020, all rights reserved
+          <span class="cal-color-grey-700 cal-margin-left-m">
+            <a href="#" style="color: rgb(0, 86, 145); text-decoration: none;">
+              About
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/js/sketch.js"></script>
+</body>
+
 </html>

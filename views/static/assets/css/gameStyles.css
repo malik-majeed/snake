@@ -2,11 +2,55 @@ html, body {
   margin: 0;
   padding: 0;
 }
-#game {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%); /* IE 9 */
-    -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */	    
+.root {
+  margin: 0;
+  margin-top: 2%;
+  display: flex;
+
+  /* This centers our sketch horizontally. */
+  justify-content: center;
+
+  /* This centers our sketch vertically. */
+  align-items: center;
+  width: 100%;
+}
+#game{
+  margin-left: 25%;
+}
+.legend{
+  overflow: hidden; /* if you don't want #second to wrap below #first */
+}
+.score {
+  text-align: center;
+}
+.calponiaImage{
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+  alignment-baseline: central;
+  margin-right: 10px;
+}
+.danger {
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+  background: #E20015;
+  alignment-baseline: central;
+  margin-right: 10px;
+}
+.minus {
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+  background: #008ECF;
+  alignment-baseline: central;
+  margin-right: 10px;
+}
+.port {
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+  background: #78BE20;
+  alignment-baseline: central;
+  margin-right: 10px;
 }

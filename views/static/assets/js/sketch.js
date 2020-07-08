@@ -3,6 +3,7 @@ var scl = 20;
 var calponia;
 var danger;
 var portal;
+var minus;
 let img;
 var high;
 
@@ -14,9 +15,11 @@ function setup() {
   frameRate(10);
   pickLocation();
   dangerZone();
-  portalZone()
+  portalZone();
+  minusZone();
   setInterval(dangerZone, 10000);
   setInterval(portalZone, 10000);
+  setInterval(minusZone, 10000);
   img = loadImage('../assets/images/calponia.png');
   tint(0, 0, 128);
   setInterval(changeColor, 100);
@@ -54,6 +57,13 @@ function portalZone() {
   portal.mult(scl);
 }
 
+function minusZone() {
+  var cols = floor(width / scl);
+  var rows = floor(height / scl);
+  minus = createVector(floor(random(cols)), floor(random(rows)));
+  minus.mult(scl);
+}
+
 function getScore() {
   var highScoreUser = "";
   const Url = "/highscore";
@@ -81,7 +91,7 @@ function postScore(totalLength) {
 }
 
 function draw() {
-  background(51);
+  background('#3D4750');
 
   if (snake.eat(calponia)) {
     pickLocation();
@@ -92,6 +102,9 @@ function draw() {
   if (snake.eatPortal(portal)) {
     portalZone();
   }
+  if (snake.eatMinus(minus)) {
+    minusZone();
+  }
   snake.killSnake();
   snake.updatePosition();
   snake.showSnake();
@@ -100,11 +113,14 @@ function draw() {
   //rect(calponia.x, calponia.y, scl, scl);
   image(img, calponia.x, calponia.y, scl, scl)
 
-  fill(255, 0, 0);
+  fill(226, 0, 21);
   rect(danger.x, danger.y, scl, scl);
 
-  fill(0, 255, 0);
+  fill(120, 190, 32);
   rect(portal.x, portal.y, scl, scl);
+
+  fill(0, 142, 207);
+  rect(minus.x, minus.y, scl, scl);
 }
 
 function keyPressed() {
@@ -132,8 +148,6 @@ function Snake() {
       var pos = this.tail[i];
       var d = dist(this.x, this.y, pos.x, pos.y);
       if (d < 1) {
-        var audio = new Audio('../assets/audio/dead.wav');
-        audio.play();
         postScore(this.totalLength)
         this.totalLength = 0;
         this.tail = [];
@@ -154,6 +168,11 @@ function Snake() {
         this.tail[i] = this.tail[i + 1];
       }
     }
+    if (this.totalLength != this.tail.length) {
+      for (var i = 0; i < this.tail.length - 1; i++) {
+        this.tail[i] = this.tail[i + 1];
+      }
+    }
     this.tail[this.totalLength - 1] = createVector(this.x, this.y)
 
     this.x = this.x + this.xSpeed * scl;
@@ -166,7 +185,7 @@ function Snake() {
 
   this.showSnake = function () {
     fill(255);
-    for (var i = 0; i < this.tail.length; i++) {
+    for (var i = 0; i < this.totalLength; i++) {
       rect(this.tail[i].x, this.tail[i].y, scl, scl);
     }
     rect(this.x, this.y, scl, scl);
@@ -176,9 +195,10 @@ function Snake() {
   this.eat = function (pos) {
     var distance = dist(this.x, this.y, pos.x, pos.y);
     if (distance < 1) {
-      var audio = new Audio('../assets/audio/eat.wav');
-      audio.play();
       this.totalLength++;
+      console.log(this.totalLength)
+      console.log(this.tail.length)
+      console.log(this.tail)
       return true;
     } else {
       return false;
@@ -187,8 +207,6 @@ function Snake() {
   this.eatDanger = function (pos) {
     var distance = dist(this.x, this.y, pos.x, pos.y);
     if (distance < 1) {
-      var audio = new Audio('../assets/audio/dead.wav');
-      audio.play();
       postScore(this.totalLength)
       this.totalLength = 0;
       this.tail = [];
@@ -202,14 +220,29 @@ function Snake() {
   this.eatPortal = function (pos) {
     var distance = dist(this.x, this.y, pos.x, pos.y);
     if (distance < 1) {
-      var audio = new Audio('../assets/audio/port.wav');
-      audio.play();
       var cols = floor(width / scl);
       var rows = floor(height / scl);
       randomCoordinates = createVector(floor(random(cols)), floor(random(rows)));
       randomCoordinates.mult(scl)
       this.x = randomCoordinates.x
       this.y = randomCoordinates.y
+      return true;
+    } else {
+      return false;
+    }
+  }
+  this.eatMinus = function (pos) {
+    var distance = dist(this.x, this.y, pos.x, pos.y);
+    if (distance < 1) {
+      if (this.totalLength == 0) {
+        return true
+      }
+      else {
+        this.totalLength = this.totalLength - 1;
+        console.log(this.totalLength)
+        console.log(this.tail.length)
+        console.log(this.tail)
+      }
       return true;
     } else {
       return false;
